@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
+define('DATA_DIRECTORY', __DIR__ . '/data/');
+
 use FantasyUpdater\Commands\UpdateCommand;
 use Symfony\Component\Console\Application;
 //use Monolog\Handler\StreamHandler;
