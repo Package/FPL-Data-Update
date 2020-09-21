@@ -5,12 +5,11 @@ define('DATA_DIRECTORY', __DIR__ . '/data/');
 
 use FantasyUpdater\Commands\UpdateCommand;
 use Symfony\Component\Console\Application;
-//use Monolog\Handler\StreamHandler;
-//use Monolog\Logger;
+use Symfony\Component\Dotenv\Dotenv;
 
-//$logger = new Logger('appLogger');
-//$logger->pushHandler(new StreamHandler(__DIR__ . '/log/app.log', Logger::INFO));
-//$logger->log(Logger::INFO, 'this is up and running.');
+// Parses environment variables into $_ENV
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__ . '/.env');
 
 $application = new Application();
 $application->add(new UpdateCommand());
