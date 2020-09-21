@@ -13,6 +13,11 @@ abstract class BaseSaveCommand extends Command
     protected abstract function getFileName() : string;
     protected abstract function getTableName(): string;
 
+    /**
+     * Attempts to load the JSON data from the data file.
+     *
+     * @return array
+     */
     protected function loadFromFile() : array
     {
         $file = DATA_DIRECTORY . '/' . $this->getFileName() . '.json';
@@ -25,12 +30,21 @@ abstract class BaseSaveCommand extends Command
         return json_decode($fileContent);
     }
 
+    /**
+     * Makes a connection to MongoDB and returns the @see Manager
+     * @return Manager
+     */
     protected function getDatabaseConnection() : Manager
     {
         $connection = new MongoDatabaseConnection();
         return $connection->manager();
     }
 
+    /**
+     * Processes the data write to MongoDB. Returns the number of entries inserted.
+     *
+     * @return int
+     */
     protected function process() : int
     {
         $data = $this->loadFromFile();
@@ -55,6 +69,12 @@ abstract class BaseSaveCommand extends Command
         return count($data);
     }
 
+    /**
+     * Writes to the @see OutputInterface the number of entries inserted in this save.
+     *
+     * @param OutputInterface $output
+     * @param int $count
+     */
     protected function writeOutput(OutputInterface $output, int $count) : void
     {
         $output->writeln("Wrote {$count} to the {$this->getTableName()} table.");
