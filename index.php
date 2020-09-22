@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 define('DATA_DIRECTORY', __DIR__ . '/data/');
 
 use FantasyUpdater\Commands\SaveGameWeeksCommand;
+use FantasyUpdater\Commands\SavePlayersCommand;
 use FantasyUpdater\Commands\SaveTeamsCommand;
 use FantasyUpdater\Commands\TestMongoCommand;
 use FantasyUpdater\Commands\UpdateCommand;
@@ -19,6 +20,7 @@ $application->add(new UpdateCommand());
 $application->add(new TestMongoCommand());
 $application->add(new SaveGameWeeksCommand());
 $application->add(new SaveTeamsCommand());
+$application->add(new SavePlayersCommand());
 $application->run();
 
 
