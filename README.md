@@ -20,7 +20,7 @@ Data extracted contains information on:
 #### To Run 
 `php index.php COMMAND_NAME COMMAND_ARGS`
 
-Where `COMMAND_NAME` is one of:
+Where `COMMAND_NAME COMMAND_ARGS` is one of:
 
 `fpl:update all` - exports all data from FPL.
 
