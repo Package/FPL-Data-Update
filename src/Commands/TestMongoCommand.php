@@ -25,7 +25,7 @@ class TestMongoCommand extends Command
     {
         try {
             $connection = new MongoDatabaseConnection();
-            $manager = $connection->manager();
+            $manager = $connection->connection();
             $this->mongoExampleCommands($manager, $output);
         } catch (Exception $e) {
             $output->writeln($e->getMessage());

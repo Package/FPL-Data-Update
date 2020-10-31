@@ -2,9 +2,8 @@
 
 namespace FantasyUpdater\Commands;
 
-use FantasyUpdater\Database\MongoDatabaseConnection;
-use MongoDB\Driver\BulkWrite;
-use MongoDB\Driver\Manager;
+use Exception;
+use FantasyUpdater\Database\MongoDatabaseWriter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,6 +16,7 @@ abstract class BaseSaveCommand extends Command
      * Attempts to load the JSON data from the data file.
      *
      * @return array
+     * @throws Exception
      */
     protected function loadFromFile() : array
     {
@@ -31,42 +31,16 @@ abstract class BaseSaveCommand extends Command
     }
 
     /**
-     * Makes a connection to MongoDB and returns the @see Manager
-     * @return Manager
-     */
-    protected function getDatabaseConnection() : Manager
-    {
-        $connection = new MongoDatabaseConnection();
-        return $connection->manager();
-    }
-
-    /**
-     * Processes the data write to MongoDB. Returns the number of entries inserted.
+     * Writes the data to the database. Returns the number of entries inserted.
      *
      * @return int
+     * @throws Exception
      */
     protected function process() : int
     {
         $data = $this->loadFromFile();
-
-        // Connect to database
-        $manager = $this->getDatabaseConnection();
-
-        // Write gameweeks
-        $bulkWriter = new BulkWrite();
-
-        // Delete any existing
-        $bulkWriter->delete([]);
-
-        // Write new ones
-        foreach ($data as $d) {
-            $bulkWriter->insert($d);
-        }
-
-        $databaseAndCollection = "{$_ENV['MONGO_DB_DATABASE']}.{$this->getTableName()}";
-        $manager->executeBulkWrite($databaseAndCollection, $bulkWriter);
-
-        return count($data);
+        $writer = new MongoDatabaseWriter();
+        return $writer->write($this->getTableName(), $data);
     }
 
     /**

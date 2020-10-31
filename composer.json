@@ -6,7 +6,8 @@
     "ext-curl": "*",
     "ext-json": "*",
     "symfony/dotenv": "^5.1",
-    "ext-mongodb": "*"
+    "ext-mongodb": "*",
+    "ext-pdo": "*"
   },
   "autoload": {
     "psr-4": {
