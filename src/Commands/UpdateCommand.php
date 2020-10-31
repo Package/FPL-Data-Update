@@ -66,6 +66,7 @@ class UpdateCommand extends Command
             $this->saveToFile(UpdateCommand::GAMEWEEKS_FILE_NAME, $data->events, $output);
         }
         if (in_array($dataToUpdate, ['all', 'fixtures'])) {
+            // Fixture data lives at another end-point so an additional request is needed:
             $data = $this->getData('fixtures/', $output);
             $this->saveToFile(UpdateCommand::FIXTURES_FILE_NAME, $data, $output);
         }

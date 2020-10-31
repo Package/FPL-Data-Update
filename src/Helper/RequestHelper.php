@@ -18,7 +18,7 @@ class RequestHelper
         return new Client([
             'base_uri' => $baseUri,
             'timeout' => 15.0,
-            'curl' => ['CURLOPT_SSL_VERIFYPEER' => false]
+            'curl' => [CURLOPT_SSL_VERIFYPEER => false]
         ]);
     }
 

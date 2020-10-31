@@ -15,7 +15,7 @@ use Symfony\Component\Dotenv\Dotenv;
 
 // Parses environment variables into $_ENV
 $dotenv = new Dotenv();
-$dotenv->load(__DIR__ . '/.env');
+$dotenv->load(__DIR__ . '/config/.env');
 
 $application = new Application();
 $application->add(new UpdateCommand());
